@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Khám Phá Giác Quan Thứ 6 & Đánh Thức Luân Xa</title>
+    <style>
+        /* Reset CSS cơ bản */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f4f4f4; /* Màu nền dự phòng */
+        }
+
+        /* Background chính của trang */
+        .main-container {
+            background-image: url('[link_anh_background_dep.jpg]'); /* THAY THẾ BẰNG LINK ẢNH CỦA BẠN */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Hiệu ứng parallax nhẹ */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px 0;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000000;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.9); /* Nền mờ cho các section */
+            margin-bottom: 25px;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+            display: inline-block; /* Để border bottom vừa với text */
+        }
+
+        .center-title {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+
+        .book-intro {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .book-cover {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .book-cover img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .book-details {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .book-details h3 {
+            color: #3498db;
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+
+        .book-details .price {
+            margin-bottom: 15px;
+        }
+
+        .book-details .old-price {
+            text-decoration: line-through;
+            color: #95a5a6;
+            margin-right: 10px;
+            font-size: 1.1em;
+        }
+
+        .book-details .new-price {
+            color: #e74c3c;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .book-description ul {
+            list-style: disc;
+            margin-left: 20px;
+        }
+
+        .book-description ul li {
+            margin-bottom: 8px;
+        }
+
+        /* Slideshow container */
+        .slideshow-container {
+            position: relative;
+            margin: auto;
+            overflow: hidden; /* Quan trọng để ẩn các slide không active */
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .mySlides {
+            display: none; /* Ẩn tất cả slide ban đầu */
+            text-align: center;
+            background: #fff; /* Màu nền cho slide */
+            padding-bottom: 10px; /* Khoảng cách cho caption */
+        }
+        .mySlides.active { /* Hiển thị slide active */
+            display: block;
+        }
+
+        .mySlides img {
+            width: 100%; /* Ảnh sẽ chiếm toàn bộ chiều rộng của slide */
+            max-height: 500px; /* Giới hạn chiều cao tối đa của ảnh */
+            object-fit: contain; /* Hiển thị toàn bộ ảnh, có thể có khoảng trống */
+            border-bottom: 1px solid #eee;
+        }
+
+        .slide-caption {
+            padding: 15px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .slide-caption h4 {
+            margin-bottom: 5px;
+            color: #3498db;
+            font-size: 1.3em;
+        }
+
+        /* Next & previous buttons */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            margin-top: -30px; /* Điều chỉnh để căn giữa theo chiều dọc */
+            color: white;
+            font-weight: bold;
+            font-size: 20px;
+            transition: 0.6s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        /* Dots for slideshow */
+        .dots-container {
+            text-align: center;
+            padding-top: 10px; /* Khoảng cách từ slide đến dots */
+        }
+
+        .dot {
+            cursor: pointer;
+            height: 15px;
+            width: 15px;
+            margin: 0 3px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+        }
+
+        .dot.active, .dot:hover {
+            background-color: #717171;
+        }
+
+        /* Form đặt hàng */
+        .order-form h3 {
+            text-align: center;
+            color: #e74c3c;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .address-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .address-group select {
+            flex: 1;
+        }
+
+        .btn-submit {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #c0392b;
+        }
+
+        .combo-offer {
+            background-color: #3498db;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .combo-offer h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+        }
+        .combo-offer p {
+            font-size: 1.2em;
+        }
+        .combo-offer .combo-price {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Thông báo */
+        #form-response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .hidden {
+            display: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            margin-top: 30px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+            .book-intro {
+                flex-direction: column;
+            }
+            .address-group {
+                flex-direction: column;
+            }
+            .prev, .next {
+                font-size: 16px;
+                padding: 12px;
+            }
+            .slideshow-container { /* Điều chỉnh cho mobile */
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <div class="container">
+                <h1>Khám Phá Sức Mạnh Tiềm Ẩn Bên Trong Bạn</h1>
+                <p>Với bộ đôi sách "Giác Quan Thứ 6" và "Đánh Thức Luân Xa"</p>
+            </div>
+        </header>
+
+        <div class="container">
+            <section class="section">
+                <div class="center-title">
+                    <h2 class="section-title">Sách: Giác Quan Thứ 6 - Mở Lối Tiềm Năng</h2>
+                </div>
+                <div class="book-intro">
+                    <div class="book-cover">
+                        <img src="[link_anh_giac_quan_thu_6_bia.jpg]" alt="Bìa sách Giác Quan Thứ 6">
+                    </div>
+                    <div class="book-details">
+                        <h3>Giác Quan Thứ 6</h3>
+                        <p class="price">
+                            <span class="old-price">299.000đ</span>
+                            <span class="new-price">199.000đ</span>
+                        </p>
+                        <div class="book-description">
+                            <p><strong>Mở khóa những khả năng phi thường ẩn giấu bên trong bạn:</strong></p>
+                            <ul>
+                                <li>Hiểu rõ về trực giác và cách lắng nghe tiếng nói bên trong.</li>
+                                <li>Phát triển khả năng linh cảm, đoán biết và nhìn thấu sự việc.</li>
+                                <li>Ứng dụng giác quan thứ 6 vào công việc, cuộc sống và các mối quan hệ.</li>
+                                <li>Thực hành các bài tập đơn giản để kích hoạt và rèn luyện giác quan đặc biệt này.</li>
+                                <li>Khám phá những câu chuyện có thật về sức mạnh của giác quan thứ 6.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <div class="center-title">
+                     <h2 class="section-title">Sách: Đánh Thức Luân Xa - Cân Bằng Năng Lượng Sống</h2>
+                </div>
+                <div class="book-intro">
+                    <div class="book-cover">
+                        <img src="[link_anh_danh_thuc_luan_xa_bia.jpg]" alt="Bìa sách Đánh Thức Luân Xa">
+                    </div>
+                    <div class="book-details">
+                        <h3>Đánh Thức Luân Xa</h3>
+                        <p class="price">
+                            <span class="old-price">250.000đ</span>
+                            <span class="new-price">179.000đ</span>
+                        </p>
+                        <div class="book-description">
+                            <p><strong>Hành trình khai mở và cân bằng 7 trung tâm năng lượng của cơ thể:</strong></p>
+                            <ul>
+                                <li>Tìm hiểu chi tiết về hệ thống 7 luân xa và vai trò của chúng.</li>
+                                <li>Nhận biết dấu hiệu tắc nghẽn và mất cân bằng ở từng luân xa.</li>
+                                <li>Các phương pháp thiền định, yoga, âm thanh và tinh thể để chữa lành và kích hoạt luân xa.</li>
+                                <li>Cải thiện sức khỏe thể chất, tinh thần và cảm xúc toàn diện.</li>
+                                <li>Kết nối sâu sắc hơn với bản thể và vũ trụ.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+             <section class="section combo-offer">
+                <h3>ƯU ĐÃI ĐẶC BIỆT KHI MUA COMBO!</h3>
+                <p>Sở hữu ngay cả hai cuốn sách "Giác Quan Thứ 6" và "Đánh Thức Luân Xa"</p>
+                <div class="combo-price">Chỉ 299.000đ</div>
+                <p><strong>(Tiết kiệm đến 250.000đ so với giá bìa)</strong></p>
+                <p><strong>VÀ MIỄN PHÍ GIAO HÀNG TOÀN QUỐC!</strong></p>
+            </section>
+
+            <section class="section">
+                <div class="center-title">
+                    <h2 class="section-title">Hình Ảnh & Nội Dung Nổi Bật</h2>
+                </div>
+                <div class="slideshow-container">
+                    <div class="mySlides active">
+                        <img src="[link_anh_slide_1_giac_quan.jpg]" alt="Hình ảnh minh họa Giác quan thứ 6 - Slide 1">
+                        <div class="slide-caption">
+                            <h4>Khám Phá Trực Giác Của Bạn</h4>
+                            <p>Hình ảnh tượng trưng cho việc lắng nghe và thấu hiểu những thông điệp từ tiềm thức.</p>
+                        </div>
+                    </div>
+                    <div class="mySlides">
+                        <img src="[link_anh_slide_2_luan_xa.jpg]" alt="Hình ảnh minh họa Luân xa - Slide 1">
+                        <div class="slide-caption">
+                            <h4>Hệ Thống 7 Luân Xa Chính</h4>
+                            <p>Minh họa vị trí và màu sắc của 7 luân xa cơ bản trên cơ thể người.</p>
+                        </div>
+                    </div>
+                    <div class="mySlides">
+                        <img src="[link_anh_slide_3_combo.jpg]" alt="Hình ảnh combo 2 sách - Slide 3">
+                        <div class="slide-caption">
+                            <h4>Bộ Đôi Khai Mở Tiềm Năng</h4>
+                            <p>Hai cuốn sách đồng hành cùng bạn trên hành trình phát triển bản thân toàn diện.</p>
+                        </div>
+                    </div>
+                     <div class="mySlides">
+                        <img src="[link_anh_slide_4_doc_gia.jpg]" alt="Hình ảnh đọc giả cảm nhận - Slide 4">
+                        <div class="slide-caption">
+                            <h4>Cảm Nhận Từ Độc Giả</h4>
+                            <p>"Cuốn sách đã thay đổi cách tôi nhìn nhận cuộc sống và lắng nghe bản thân mình."</p>
+                        </div>
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
+                <br>
+                <div class="dots-container" style="text-align:center">
+                    <span class="dot active" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                    <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+            </section>
+
+            <section class="section order-form-section">
+                <div class="order-form">
+                    <h3>ĐẶT MUA SÁCH NGAY!</h3>
+                    <p style="text-align: center; margin-bottom: 20px;">Điền thông tin dưới đây để nhận ưu đãi đặc biệt. Chúng tôi sẽ liên hệ xác nhận đơn hàng sớm nhất.</p>
+                    <form id="orderForm">
+                        <div class="form-group hidden"> <label for="date">Ngày đặt (ẩn):</label>
+                            <input type="text" id="date" name="date" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="name">Họ và tên:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Số điện thoại:</label>
+                            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10,11}" title="Số điện thoại phải có 10-11 chữ số">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Địa chỉ nhận hàng:</label>
+                            <div class="address-group">
+                                <select id="city" name="city" required onchange="loadDistricts()">
+                                    <option value="">-- Chọn Tỉnh/Thành phố --</option>
+                                    {}
+                                </select>
+                                <select id="district" name="district" required onchange="loadWards()">
+                                    <option value="">-- Chọn Quận/Huyện --</option>
+                                    {}
+                                </select>
+                                <select id="ward" name="ward" required>
+                                    <option value="">-- Chọn Phường/Xã --</option>
+                                    {}
+                                </select>
+                            </div>
+                             <input type="text" id="street_address" name="street_address" placeholder="Số nhà, tên đường..." style="margin-top:10px;" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="don_hang">Chọn sách đặt mua:</label>
+                            <select id="don_hang" name="don_hang" required>
+                                <option value="">-- Vui lòng chọn --</option>
+                                <option value="Giác Quan Thứ 6 (199k)">Giác Quan Thứ 6 - 199.000đ</option>
+                                <option value="Đánh Thức Luân Xa (179k)">Đánh Thức Luân Xa - 179.000đ</option>
+                                <option value="Combo 2 cuốn (299k + Freeship)">Combo 2 cuốn (Giác Quan Thứ 6 + Đánh Thức Luân Xa) - 299.000đ (Miễn Ship)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="Note">Ghi chú (Nếu có):</label>
+                            <textarea id="Note" name="Note"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">XÁC NHẬN ĐẶT HÀNG</button>
+                    </form>
+                    <div id="form-response" class="hidden"></div>
+                    <div id="order-summary" class="hidden" style="margin-top: 20px; padding:15px; border: 1px solid #ccc; border-radius: 5px; background-color: #f9f9f9;">
+                        <h4>Thông tin đơn hàng của bạn:</h4>
+                        <p id="summary-name"></p>
+                        <p id="summary-phone"></p>
+                        <p id="summary-address"></p>
+                        <p id="summary-order"></p>
+                        <p id="summary-note"></p>
+                        <p style="margin-top:10px; font-weight:bold; color: green;">Cảm ơn bạn đã đặt hàng! Shop sẽ liên hệ để xác nhận đơn hàng sớm nhất.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2025 Tên Shop Của Bạn. Phát triển bởi [Tên bạn/Công ty bạn].</p>
+                <p>Hotline hỗ trợ: 0123 456 789</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // --- SLIDESHOW ---
+        let slideIndex = 1;
+        const slides = document.getElementsByClassName("mySlides");
+        const dots = document.getElementsByClassName("dot");
+
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                slides[i].classList.remove("active");
+            }
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            slides[slideIndex-1].style.display = "block";
+            slides[slideIndex-1].classList.add("active");
+            dots[slideIndex-1].classList.add("active");
+        }
+
+        // Tự động chuyển slide (tùy chọn)
+        // let autoSlideInterval = setInterval(() => { plusSlides(1); }, 5000); // Chuyển slide mỗi 5 giây
+
+
+        // --- XỬ LÝ DROPDOWN ĐỊA CHỈ (Cần thêm dữ liệu thực tế) ---
+        const addressData = {
+            "Hà Nội": {
+                "Ba Đình": ["Phúc Xá", "Trúc Bạch", "Vĩnh Phúc"],
+                "Hoàn Kiếm": ["Chương Dương", "Cửa Đông", "Đồng Xuân"],
+                // Thêm các quận/huyện và phường/xã khác của Hà Nội
+            },
+            "TP. Hồ Chí Minh": {
+                "Quận 1": ["Bến Nghé", "Bến Thành", "Cầu Kho"],
+                "Quận 3": ["Phường 1", "Phường 2", "Phường Võ Thị Sáu"],
+                // Thêm các quận/huyện và phường/xã khác của TP.HCM
+            },
+            "Đà Nẵng": {
+                "Hải Châu": ["Bình Hiên", "Bình Thuận", "Hải Châu I"],
+                "Sơn Trà": ["An Hải Bắc", "An Hải Đông", "Mân Thái"]
+                // Thêm các quận/huyện và phường/xã khác của Đà Nẵng
+            }
+            // Thêm các tỉnh/thành phố khác
+        };
+
+        const citySelect = document.getElementById('city');
+        const districtSelect = document.getElementById('district');
+        const wardSelect = document.getElementById('ward');
+
+        // Tải danh sách tỉnh/thành phố (ví dụ)
+        Object.keys(addressData).forEach(city => {
+            const option = document.createElement('option');
+            option.value = city;
+            option.textContent = city;
+            citySelect.appendChild(option);
+        });
+
+
+        function loadDistricts() {
+            const selectedCity = citySelect.value;
+            districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>'; // Reset
+            wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>'; // Reset
+
+            if (selectedCity && addressData[selectedCity]) {
+                Object.keys(addressData[selectedCity]).forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district;
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+            }
+        }
+
+        function loadWards() {
+            const selectedCity = citySelect.value;
+            const selectedDistrict = districtSelect.value;
+            wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>'; // Reset
+
+            if (selectedCity && selectedDistrict && addressData[selectedCity] && addressData[selectedCity][selectedDistrict]) {
+                addressData[selectedCity][selectedDistrict].forEach(ward => {
+                    const option = document.createElement('option');
+                    option.value = ward;
+                    option.textContent = ward;
+                    wardSelect.appendChild(option);
+                });
+            }
+        }
+
+
+        // --- XỬ LÝ FORM ĐẶT HÀNG ---
+        const orderForm = document.getElementById('orderForm');
+        const formResponse = document.getElementById('form-response');
+        const orderSummaryDiv = document.getElementById('order-summary');
+
+        // Tự động điền ngày hiện tại (ẩn)
+        document.getElementById('date').value = new Date().toLocaleDateString('vi-VN');
+
+        orderForm.addEventListener('submit', function(e) {
+            e.preventDefault(); // Ngăn chặn submit form mặc định
+
+            formResponse.classList.add('hidden');
+            formResponse.textContent = '';
+            orderSummaryDiv.classList.add('hidden');
+
+            const submitButton = orderForm.querySelector('.btn-submit');
+            submitButton.disabled = true;
+            submitButton.textContent = 'ĐANG GỬI...';
+
+            // Lấy dữ liệu từ form
+            const formData = new FormData(orderForm);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+
+            // Gộp địa chỉ chi tiết
+            data.address = `${data.street_address}, ${data.ward}, ${data.district}, ${data.city}`;
+            // Xóa các trường địa chỉ riêng lẻ không cần gửi đi nếu Google Sheet chỉ có cột 'address'
+            // delete data.street_address;
+            // delete data.ward;
+            // delete data.district;
+            // delete data.city;
+            // Nếu Google Sheet của bạn có các cột riêng là city, district, ward, street_address thì giữ lại
+
+
+            // Hiển thị thông tin đã đặt hàng (trước khi gửi)
+            document.getElementById('summary-name').textContent = `Họ tên: ${data.name}`;
+            document.getElementById('summary-phone').textContent = `Số điện thoại: ${data.phone}`;
+            document.getElementById('summary-address').textContent = `Địa chỉ: ${data.address}`;
+            document.getElementById('summary-order').textContent = `Đơn hàng: ${data.don_hang}`;
+            document.getElementById('summary-note').textContent = data.Note ? `Ghi chú: ${data.Note}` : 'Ghi chú: Không có';
+
+
+            // Gửi dữ liệu đến SheetDB
+            fetch('https://sheetdb.io/api/v1/fg5880qtxha50', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    data: [ // SheetDB yêu cầu dữ liệu là một mảng các object
+                        {
+                            'date': data.date,
+                            'name': data.name,
+                            'phone': data.phone,
+                            'address': data.address, // Gửi địa chỉ đã gộp
+                            // Nếu bạn muốn gửi từng phần địa chỉ riêng:
+                            // 'city': data.city,
+                            // 'district': data.district,
+                            // 'ward': data.ward,
+                            // 'street': data.street_address,
+                            'don_hang': data.don_hang,
+                            'Note': data.Note
+                        }
+                    ]
+                })
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                orderForm.reset(); // Xóa form sau khi gửi thành công
+                // Tải lại dropdown địa chỉ về trạng thái ban đầu
+                districtSelect.innerHTML = '<option value="">-- Chọn Quận/Huyện --</option>';
+                wardSelect.innerHTML = '<option value="">-- Chọn Phường/Xã --</option>';
+                document.getElementById('date').value = new Date().toLocaleDateString('vi-VN'); // Reset date
+
+                // Hiển thị phần xác nhận đơn hàng
+                orderSummaryDiv.classList.remove('hidden');
+                // Có thể ẩn form đi sau khi đặt thành công
+                // orderForm.classList.add('hidden');
+
+                // Thông báo thành công chung (nếu không muốn dùng orderSummary riêng)
+                // formResponse.textContent = 'Bạn đã đặt hàng thành công! Shop sẽ liên hệ để xác nhận đơn hàng.';
+                // formResponse.className = 'success'; // Bỏ hidden đi để hiện
+                // formResponse.classList.remove('hidden');
+
+
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                formResponse.textContent = 'Đã có lỗi xảy ra khi gửi đơn hàng. Vui lòng thử lại sau.';
+                formResponse.className = 'error';
+                formResponse.classList.remove('hidden');
+                orderSummaryDiv.classList.add('hidden'); // Ẩn summary nếu lỗi
+            })
+            .finally(() => {
+                 submitButton.disabled = false;
+                 submitButton.textContent = 'XÁC NHẬN ĐẶT HÀNG';
+            });
+        });
+
+    </script>
+</body>
+</html>
